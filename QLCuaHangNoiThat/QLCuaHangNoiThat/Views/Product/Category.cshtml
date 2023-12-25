@@ -1,0 +1,36 @@
+﻿@model List<Model_Data.Framework.Product>
+
+@{
+    var category = (Model_Data.Framework.ProductCategory)ViewBag.Category;
+    ViewBag.Title = category.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="span9">
+    @*<div class="well well-small">*@
+        <h4>@category.Name <small class="pull-right">200+ featured products</small></h4>
+
+        <ul class="thumbnails">
+            @foreach (var item in Model)
+            {
+                var link = "/chi-tiet/" + item.MetaTitle + " - " + item.ID;
+                <li class="span3">
+                    <div class="thumbnail">
+                        <a style="width:260px;height:250px" href="@link"><img style="width:255px;height:245px" src="@item.Image" alt="@item.Name" /></a>
+                        <div class="caption">
+                            <h5>@item.Name</h5>
+                            <p>
+                               @item.Discription
+                            </p>
+
+                            <h4 style="text-align:center"><a class="btn" href="@link"> <i class="icon-zoom-in"></i></a> <a class="btn" href="/them-gio-hang?productId=@item.ID&quantity=1">Thêm vào giỏ hàng <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">@(item.Price.HasValue ? item.Price.Value.ToString("N0"):"Lien He")</a></h4>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    @*</div>*@
+</div>
+    
+
+    

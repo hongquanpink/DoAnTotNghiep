@@ -1,0 +1,19 @@
+﻿@model List<Model_Data.Framework.Menu>
+<script src="~/Scripts/cartController.js"></script>
+<div class="span6">
+    @{
+        var session = (QLCuaHangNoiThat.Common.UserLogin)Session[QLCuaHangNoiThat.Common.CommonConstants.USER_SESSION];
+    }
+    @if (session == null)
+    {
+        <div class="span6"> Welcome! <strong> User </strong></div>
+    }
+    else
+    {
+        <ul>
+            <li>Xin chao:<p id="username">@session.UserName</p></li>
+            <li style="display: none"><input type="text" id="123" value="@session.UserName" ></li>
+            <li>@Html.ActionLink("Thoat","Logout","User")</li>
+        </ul>
+    }
+</div>

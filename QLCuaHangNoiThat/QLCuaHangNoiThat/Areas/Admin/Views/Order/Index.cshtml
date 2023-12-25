@@ -1,0 +1,80 @@
+﻿@model PagedList.IPagedList<Model_Data.Framework.Order>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h2 class="m-0 font-weight-bold text-primary">Data Bill</h2>
+    </div>
+    @using (Html.BeginForm())
+    {
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-md-6">
+                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                       aria-label="Search" aria-describedby="basic-addon2" name="searchString" value="@ViewBag.SearchString">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search fa-sm"> Tìm Kiếm </i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên người nhận</th>
+                        <th>Số điện thoại</th>
+                        <th>Dịa chỉ</th>
+                        <th>Emai</th>
+                        <th>Trạng Thái</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên người nhận</th>
+                        <th>Số điện thoại</th>
+                        <th>Dịa chỉ</th>
+                        <th>Emai</th>
+                        <th>Trạng Thái</th>
+                        <th>#</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @*<a href="@Url.Action("Index", "Order", new { MaHD = item.ID })"></a>*@
+                                @Html.DisplayFor(modelItem => item.ID)
+                            </td>
+
+                            <td>@item.ShipName</td>
+                            <td>@item.ShipMobie</td>
+                            <td>@item.ShipAddress</td>
+                            <td>@item.ShipEmail</td>
+                            <td>@item.Status</td>
+                            <td><a href="@Url.Action("Detail", "Order", new { id = item.ID })">DetailBill</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SeachString }))
+        </div>
+    </div>
+</div>
+
+
+

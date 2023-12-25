@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Model_Data.Framework.OrderDetail>
+@{
+    ViewBag.Title = "Partial_SanPham";
+    //Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = null;
+
+}
+<hr />
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Tên hàng</th>
+                        <th>Ảnh</th>
+                        <th>Giá</th>
+                        <th>Số Lượng</th>
+                        <th>Thành Tiền</th>
+                        @*<th>#</th>*@
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Tên hàng</th>
+                        <th>Ảnh</th>
+                        <th>Giá</th>
+                        <th>Số Lượng</th>
+                        <th>Thành Tiền</th>
+                        @*<th>#</th>*@
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Product.Name</td>
+                            <td><img style="width: 120px; height: 90px" src="@item.Product.Image" /></td>
+                            <td>@item.Price</td>
+                            <td>@item.Quantity</td>
+                            <td>@((item.Price.GetValueOrDefault(0) * item.Quantity.GetValueOrDefault(1)))</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SeachString }))*@
+        </div>
+    </div>
+</div>
+

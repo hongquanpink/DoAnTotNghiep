@@ -1,0 +1,55 @@
+﻿@model Model_Data.Framework.Order
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Tên người nhận</th>
+                        <th>Số điện thoại</th>
+                        <th>Dịa chỉ</th>
+                        <th>Emai</th>
+                        <th>Trạng Thái</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Tên người nhận</th>
+                        <th>Số điện thoại</th>
+                        <th>Dịa chỉ</th>
+                        <th>Emai</th>
+                        <th>Trạng Thái</th>
+                        <th>#</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+
+
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => Model.ShipName)</td>
+                        <td>@Html.DisplayFor(modelItem => Model.ShipMobie)</td>
+                        <td>@Html.DisplayFor(modelItem => Model.ShipAddress)</td>
+                        <td>@Html.DisplayFor(modelItem => Model.ShipEmail)</td>
+                        <td>@Html.DisplayFor(modelItem => Model.Status)</td>
+
+                        <td><a href="@Url.Action("Detail", "Order", new {id=Model.ID})">Detail</a></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+@Html.Action("Partial_SanPham","Order", new { id = Model.ID })
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

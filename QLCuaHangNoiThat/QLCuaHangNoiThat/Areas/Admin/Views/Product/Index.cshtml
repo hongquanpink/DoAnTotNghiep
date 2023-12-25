@@ -1,0 +1,88 @@
+﻿
+@model PagedList.IPagedList<Model_Data.Framework.Product>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h2 class="m-0 font-weight-bold text-primary">Danh Sách Sản Phẩm</h2>
+    </div>
+
+    <div class="card-header py-3">
+        <a href="/Admin/Product/Create"> <button>THÊM MỚI</button> </a>
+    </div>
+
+    @using (Html.BeginForm("Index", "Product", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="col-md-6">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                           aria-label="Search" aria-describedby="basic-addon2" name="searchString" value="@ViewBag.SearchString">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search fa-sm"> Tìm Kiếm </i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Tên Sản Phẩm</th>
+                        <th>Mã Sản Phẩm</th>
+                        <th>Mô tả</th>
+                        <th>Ảnh</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Tên Sản Phẩm</th>
+                        <th>Mã Sản Phẩm</th>
+                        <th>Mô tả</th>
+                        <th>Ảnh</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>#</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr id="row_@item.ID">
+                            <td>@item.Name</td>
+                            <td>@item.Code</td>
+                            <td>@item.Discription</td>
+                            <td><img style="width:160px;height:90px;" src="@item.Image" /></td>
+                            <td>@item.Price</td>
+                            <td>@item.Quantity</td>
+                            <td>
+                                <a href="/Admin/Product/Edit/@item.ID">SỬA </a>
+                                ||
+                                @Ajax.ActionLink("XÓA", "Delete", new { @id = item.ID }, new AjaxOptions
+                                   {
+                                       Confirm = "Bạn có muốn xóa bản ghi này?",
+                                       OnComplete = "$('#row_" + @item.ID + "')",
+                                       HttpMethod = "Delete"
+                                   })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SeachString }))
+        </div>
+    </div>
+</div>
+

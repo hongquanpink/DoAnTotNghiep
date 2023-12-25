@@ -1,0 +1,14 @@
+﻿@model List<Model_Data.Framework.Menu>
+
+<div class="menu">
+
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li style=" color: #ff0000; float: left; width: 120px; height: 40px; line-height: 40px;text-decoration-color:#b6ff00">
+                    <a style=" text-decoration:auto;font-size:16px; color: #fff; display: block;" href="@item.Link" target="@item.Target">@item.Text</a>
+                </li>
+            }
+        </ul>
+ 
+</div>
